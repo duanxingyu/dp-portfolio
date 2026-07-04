@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState, type ChangeEvent } from 'react';
 import type { PortfolioData } from '../types/portfolio';
 import { assetUrl } from '../lib/dataSource';
 import { getConfigToken, setConfigToken, usePortfolioEditor } from '../hooks/usePortfolioEditor';
@@ -153,6 +153,7 @@ export default function ConfigPage() {
     save,
     saveDraft,
     preview,
+    importFromFile,
     exportJson,
     reset,
     discardDraft,
@@ -162,6 +163,7 @@ export default function ConfigPage() {
   const [tab, setTab] = useState<TabId>('site');
   const [tokenInput, setTokenInput] = useState(getConfigToken());
   const [toast, setToast] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const activeTabContent = useMemo(() => {
     if (!data) return null;
@@ -202,6 +204,22 @@ export default function ConfigPage() {
     setTimeout(() => setToast(null), 2500);
   };
 
+  const handleImportClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleImportFile = async (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    e.target.value = '';
+    if (!file) return;
+
+    const ok = await importFromFile(file);
+    if (ok) {
+      setToast(`已导入 ${file.name}`);
+      setTimeout(() => setToast(null), 2500);
+    }
+  };
+
   const handleSave = async () => {
     setConfigToken(tokenInput.trim());
     const ok = await save();
@@ -237,6 +255,13 @@ export default function ConfigPage() {
 
   return (
     <div className="min-h-screen bg-[#030014] text-white">
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept=".json,application/json"
+        className="hidden"
+        onChange={handleImportFile}
+      />
       <header className="sticky top-0 z-50 border-b border-white/8 bg-[#030014]/90 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4">
           <div>
@@ -271,6 +296,13 @@ export default function ConfigPage() {
               className="cursor-pointer rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-2 text-sm font-medium text-cyan-200 hover:bg-cyan-500/20"
             >
               预览
+            </button>
+            <button
+              type="button"
+              onClick={handleImportClick}
+              className="cursor-pointer rounded-full border border-white/10 px-4 py-2 text-sm text-white/70 hover:text-white"
+            >
+              导入 JSON
             </button>
             {!apiAvailable && (
               <button

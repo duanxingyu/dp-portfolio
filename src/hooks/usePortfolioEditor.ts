@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { PortfolioData } from '../types/portfolio';
 import { downloadPortfolioJson, fetchPortfolio, isApiAvailable } from '../lib/dataSource';
+import { parsePortfolioFile } from '../lib/portfolioImport';
 import {
   clearConfigDraft,
   formatCacheTime,
@@ -163,6 +164,34 @@ export function usePortfolioEditor() {
     window.open(getPreviewUrl(), '_blank', 'noopener,noreferrer');
   };
 
+  const importData = (json: PortfolioData, options?: { skipConfirm?: boolean }) => {
+    const hasDirty = JSON.stringify(data) !== baseline;
+    if (
+      hasDirty &&
+      !options?.skipConfirm &&
+      !window.confirm('当前有未保存的修改，导入将覆盖编辑器内容，是否继续？')
+    ) {
+      return false;
+    }
+
+    setData(json);
+    saveConfigDraft(json, baseline);
+    setDraftSavedAt(Date.now());
+    setDraftRestored(true);
+    setError(null);
+    return true;
+  };
+
+  const importFromFile = async (file: File) => {
+    try {
+      const json = await parsePortfolioFile(file);
+      return importData(json, { skipConfirm: false });
+    } catch (e) {
+      setError(e instanceof Error ? e.message : '导入失败');
+      return false;
+    }
+  };
+
   const exportJson = () => {
     if (!data) return;
     downloadPortfolioJson(data);
@@ -202,6 +231,7 @@ export function usePortfolioEditor() {
     save,
     saveDraft,
     preview,
+    importFromFile,
     exportJson,
     reset,
     discardDraft,
