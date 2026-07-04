@@ -187,17 +187,19 @@ export function Contact({
               />
             </motion.div>
           )}
-          {contact.resume && (
+          {contact.boss && (
             <motion.div variants={fadeUp} className="sm:col-span-2">
               <InteractiveButton
-                href={assetUrl(contact.resume)}
-                download
-                className="flex w-full items-center justify-center gap-3 rounded-2xl border border-violet-500/30 bg-violet-500/10 p-5 hover:border-violet-500/50 hover:bg-violet-500/15 focus-visible:ring-2 focus-visible:ring-violet-400/60"
+                href={contact.boss}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex w-full items-center justify-center gap-3 rounded-2xl border border-[#00bebd]/30 bg-[#00bebd]/10 p-5 hover:border-[#00bebd]/50 hover:bg-[#00bebd]/15 focus-visible:ring-2 focus-visible:ring-violet-400/60"
               >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-violet-400">
-                  <path d="M12 3v12M8 11l4 4 4-4M4 21h16" />
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-[#00bebd]">
+                  <path d="M12 12a4 4 0 100-8 4 4 0 000 8z" />
+                  <path d="M4 20c2-3.5 5-5 8-5s6 1.5 8 5" />
                 </svg>
-                <span className="text-sm font-medium text-white/85">下载 PDF 简历</span>
+                <span className="text-sm font-medium text-white/85">Boss直聘 · 查看主页</span>
               </InteractiveButton>
             </motion.div>
           )}

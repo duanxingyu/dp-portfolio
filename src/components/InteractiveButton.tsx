@@ -8,6 +8,8 @@ interface InteractiveButtonProps {
   className?: string;
   href?: string;
   download?: boolean;
+  target?: string;
+  rel?: string;
   onClick?: () => void;
   magnetic?: boolean;
 }
@@ -17,6 +19,8 @@ export function InteractiveButton({
   className = '',
   href,
   download,
+  target,
+  rel,
   onClick,
   magnetic = false,
 }: InteractiveButtonProps) {
@@ -56,6 +60,8 @@ export function InteractiveButton({
         ref={ref as RefObject<HTMLAnchorElement>}
         href={href}
         download={download || undefined}
+        target={target}
+        rel={rel}
         className={className}
         style={springStyle}
         onMouseMove={handleMouseMove}

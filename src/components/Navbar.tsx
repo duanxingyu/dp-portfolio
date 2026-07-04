@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { useScrolled } from './AnimatedBackground';
 import type { ContactInfo } from '../types/portfolio';
 import type { SectionId } from '../hooks/useScrollSpy';
-import { assetUrl } from '../lib/dataSource';
 import { springFloat } from '../lib/motion';
 import { InteractiveButton } from './InteractiveButton';
 
@@ -81,13 +80,14 @@ export function Navbar({
           </ul>
 
           <div className="flex items-center gap-3">
-            {contact?.resume && (
+            {contact?.boss && (
               <InteractiveButton
-                href={assetUrl(contact.resume)}
-                download
+                href={contact.boss}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="hidden rounded-full border border-white/15 px-4 py-2 text-sm font-medium text-white/75 transition-colors duration-200 hover:border-white/30 hover:text-white focus-visible:ring-2 focus-visible:ring-violet-400/60 sm:inline-block"
               >
-                下载简历
+                Boss直聘
               </InteractiveButton>
             )}
             <InteractiveButton
@@ -147,13 +147,14 @@ export function Navbar({
                 </a>
               ))}
               <div className="mt-4 flex w-full max-w-xs flex-col gap-3">
-                {contact?.resume && (
+                {contact?.boss && (
                   <InteractiveButton
-                    href={assetUrl(contact.resume)}
-                    download
+                    href={contact.boss}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-full rounded-full border border-white/15 py-3 text-center text-sm font-medium text-white/80"
                   >
-                    下载简历
+                    Boss直聘
                   </InteractiveButton>
                 )}
                 <InteractiveButton

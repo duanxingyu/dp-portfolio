@@ -76,8 +76,8 @@ function ContactSection({ data, update }: { data: PortfolioData; update: ReturnT
           <TextInput value={data.site.contact.wechatQr ?? ''} onChange={(v) => update((d) => ({ ...d, site: { ...d.site, contact: { ...d.site.contact, wechatQr: v } } }))} />
           {data.site.contact.wechatQr && <ImagePreview src={assetUrl(data.site.contact.wechatQr)} alt="微信二维码" />}
         </Field>
-        <Field label="简历 PDF" hint="如 /assets/resume.pdf">
-          <TextInput value={data.site.contact.resume ?? ''} onChange={(v) => update((d) => ({ ...d, site: { ...d.site, contact: { ...d.site.contact, resume: v } } }))} />
+        <Field label="Boss直聘主页" hint="填写完整链接，如 https://www.zhipin.com/web/geek/...">
+          <TextInput value={data.site.contact.boss ?? ''} onChange={(v) => update((d) => ({ ...d, site: { ...d.site, contact: { ...d.site.contact, boss: v } } }))} placeholder="https://www.zhipin.com/web/geek/..." />
         </Field>
       </ConfigPanel>
       <ConfigPanel title="社交链接">

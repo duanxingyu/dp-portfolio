@@ -24,7 +24,7 @@ const app = Fastify({ logger: true });
 await app.register(cors, { origin: true });
 
 async function readPortfolio() {
-  const raw = await readFile(PORTFOLIO_PATH, 'utf-8');
+  const raw = (await readFile(PORTFOLIO_PATH, 'utf-8')).replace(/^\uFEFF/, '');
   return JSON.parse(raw);
 }
 

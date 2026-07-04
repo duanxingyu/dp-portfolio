@@ -36,7 +36,9 @@ export function validatePortfolioData(raw: unknown): PortfolioData {
         phone: input.site.contact.phone?.trim(),
         wechat: input.site.contact.wechat?.trim(),
         wechatQr: input.site.contact.wechatQr?.trim(),
-        resume: input.site.contact.resume?.trim(),
+        boss:
+          input.site.contact.boss?.trim() ??
+          (input.site.contact as { resume?: string }).resume?.trim(),
       },
       social: input.site.social ?? {},
       marquee: input.site.marquee ?? [],

@@ -27,7 +27,7 @@ export interface ContactInfo {
   phone?: string;
   wechat?: string;
   wechatQr?: string;
-  resume?: string;
+  boss?: string;
 }
 
 export interface PortfolioData {
