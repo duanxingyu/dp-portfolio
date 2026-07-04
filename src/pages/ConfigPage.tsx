@@ -139,7 +139,26 @@ function StatsSection({ data, update }: { data: PortfolioData; update: ReturnTyp
 }
 
 export default function ConfigPage() {
-  const { data, update, loading, saving, error, dirty, authRequired, apiAvailable, save, exportJson, reset, load } = usePortfolioEditor();
+  const {
+    data,
+    update,
+    loading,
+    saving,
+    error,
+    dirty,
+    authRequired,
+    apiAvailable,
+    draftRestored,
+    draftSavedAt,
+    save,
+    saveDraft,
+    preview,
+    exportJson,
+    reset,
+    discardDraft,
+    load,
+    formatCacheTime,
+  } = usePortfolioEditor();
   const [tab, setTab] = useState<TabId>('site');
   const [tokenInput, setTokenInput] = useState(getConfigToken());
   const [toast, setToast] = useState<string | null>(null);
@@ -169,6 +188,19 @@ export default function ConfigPage() {
         return null;
     }
   }, [data, tab, update]);
+
+  const handleSaveDraft = () => {
+    if (saveDraft()) {
+      setToast('草稿已保存到本地');
+      setTimeout(() => setToast(null), 2500);
+    }
+  };
+
+  const handlePreview = () => {
+    preview();
+    setToast('已在新标签页打开草稿预览');
+    setTimeout(() => setToast(null), 2500);
+  };
 
   const handleSave = async () => {
     setConfigToken(tokenInput.trim());
@@ -210,13 +242,36 @@ export default function ConfigPage() {
           <div>
             <h1 className="font-display text-xl font-bold">作品集配置</h1>
             <p className="text-xs text-white/45">
-              {apiAvailable ? '修改后保存，刷新首页即可看到效果' : 'GitHub Pages 静态模式：保存将导出 JSON 文件'}
+              {dirty && draftSavedAt
+                ? `本地草稿已自动缓存 · ${formatCacheTime(draftSavedAt)}`
+                : apiAvailable
+                  ? '修改后保存，刷新首页即可看到效果'
+                  : 'GitHub Pages 静态模式：保存将导出 JSON 文件'}
             </p>
           </div>
-          <div className="flex items-center gap-2">
-            <a href="#/" className="rounded-full border border-white/10 px-4 py-2 text-sm text-white/70 hover:text-white">
-              预览首页
+          <div className="flex flex-wrap items-center justify-end gap-2">
+            <a
+              href="#/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-full border border-white/10 px-4 py-2 text-sm text-white/55 hover:text-white"
+            >
+              线上版本
             </a>
+            <button
+              type="button"
+              onClick={handleSaveDraft}
+              className="cursor-pointer rounded-full border border-violet-500/30 bg-violet-500/10 px-4 py-2 text-sm font-medium text-violet-200 hover:bg-violet-500/20"
+            >
+              保存草稿
+            </button>
+            <button
+              type="button"
+              onClick={handlePreview}
+              className="cursor-pointer rounded-full border border-cyan-500/30 bg-cyan-500/10 px-4 py-2 text-sm font-medium text-cyan-200 hover:bg-cyan-500/20"
+            >
+              预览
+            </button>
             {!apiAvailable && (
               <button
                 type="button"
@@ -240,11 +295,29 @@ export default function ConfigPage() {
               onClick={handleSave}
               className="cursor-pointer rounded-full bg-gradient-to-r from-cyan-500 to-violet-500 px-5 py-2 text-sm font-medium text-white disabled:opacity-40"
             >
-              {saving ? '保存中…' : !dirty ? '已保存' : apiAvailable ? '保存更改' : '导出并保存'}
+              {saving ? '保存中…' : !dirty ? '已保存' : apiAvailable ? '保存更改' : '导出并发布'}
             </button>
           </div>
         </div>
       </header>
+
+      {draftRestored && (
+        <div className="border-b border-violet-500/20 bg-violet-500/10 px-6 py-3">
+          <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3">
+            <p className="text-sm text-violet-100">
+              已从本地缓存恢复未保存的编辑
+              {draftSavedAt ? `（${formatCacheTime(draftSavedAt)}）` : ''}
+            </p>
+            <button
+              type="button"
+              onClick={discardDraft}
+              className="cursor-pointer rounded-lg border border-white/10 px-3 py-1.5 text-xs text-white/70 hover:text-white"
+            >
+              丢弃草稿，使用线上版本
+            </button>
+          </div>
+        </div>
+      )}
 
       {!apiAvailable && (
         <div className="border-b border-cyan-500/20 bg-cyan-500/10 px-6 py-3 text-sm text-cyan-100">
@@ -303,14 +376,30 @@ export default function ConfigPage() {
 
       {dirty && (
         <div className="fixed inset-x-0 bottom-0 z-50 border-t border-white/8 bg-[#030014]/95 px-6 py-3 backdrop-blur-xl lg:hidden">
-          <button
-            type="button"
-            disabled={saving}
-            onClick={handleSave}
-            className="w-full cursor-pointer rounded-full bg-gradient-to-r from-cyan-500 to-violet-500 py-3 text-sm font-medium text-white"
-          >
-            {saving ? '保存中…' : apiAvailable ? '保存更改' : '导出并保存'}
-          </button>
+          <div className="flex gap-2">
+            <button
+              type="button"
+              onClick={handleSaveDraft}
+              className="flex-1 cursor-pointer rounded-full border border-violet-500/30 py-3 text-sm font-medium text-violet-200"
+            >
+              保存草稿
+            </button>
+            <button
+              type="button"
+              onClick={handlePreview}
+              className="flex-1 cursor-pointer rounded-full border border-cyan-500/30 py-3 text-sm font-medium text-cyan-200"
+            >
+              预览
+            </button>
+            <button
+              type="button"
+              disabled={saving}
+              onClick={handleSave}
+              className="flex-1 cursor-pointer rounded-full bg-gradient-to-r from-cyan-500 to-violet-500 py-3 text-sm font-medium text-white disabled:opacity-40"
+            >
+              {saving ? '保存中…' : '发布'}
+            </button>
+          </div>
         </div>
       )}
 

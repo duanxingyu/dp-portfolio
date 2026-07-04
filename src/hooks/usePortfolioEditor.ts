@@ -1,6 +1,15 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import type { PortfolioData } from '../types/portfolio';
 import { downloadPortfolioJson, fetchPortfolio, isApiAvailable } from '../lib/dataSource';
+import {
+  clearConfigDraft,
+  formatCacheTime,
+  getPreviewUrl,
+  loadConfigDraft,
+  saveConfigDraft,
+  savePortfolioCache,
+  savePreviewData,
+} from '../lib/portfolioCache';
 
 const TOKEN_KEY = 'portfolio-config-token';
 
@@ -20,14 +29,30 @@ export function usePortfolioEditor() {
   const [error, setError] = useState<string | null>(null);
   const [apiAvailable, setApiAvailable] = useState(false);
   const [authRequired, setAuthRequired] = useState(false);
+  const [draftRestored, setDraftRestored] = useState(false);
+  const [draftSavedAt, setDraftSavedAt] = useState<number | null>(null);
+  const draftTimer = useRef<number | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
     setError(null);
+    setDraftRestored(false);
     try {
       const json = await fetchPortfolio();
-      setData(json);
-      setBaseline(JSON.stringify(json));
+      const remoteStr = JSON.stringify(json);
+      setBaseline(remoteStr);
+
+      const draft = loadConfigDraft();
+      if (draft && JSON.stringify(draft.data) !== remoteStr) {
+        setData(draft.data);
+        setDraftRestored(true);
+        setDraftSavedAt(draft.savedAt);
+      } else {
+        setData(json);
+        if (draft && JSON.stringify(draft.data) === remoteStr) {
+          clearConfigDraft();
+        }
+      }
 
       const hasApi = await isApiAvailable();
       setApiAvailable(hasApi);
@@ -46,7 +71,15 @@ export function usePortfolioEditor() {
         setAuthRequired(false);
       }
     } catch (e) {
-      setError(e instanceof Error ? e.message : '加载失败');
+      const draft = loadConfigDraft();
+      if (draft?.data) {
+        setData(draft.data);
+        setBaseline('');
+        setDraftRestored(true);
+        setDraftSavedAt(draft.savedAt);
+      } else {
+        setError(e instanceof Error ? e.message : '加载失败');
+      }
     } finally {
       setLoading(false);
     }
@@ -58,6 +91,20 @@ export function usePortfolioEditor() {
 
   const dirty = data ? JSON.stringify(data) !== baseline : false;
 
+  useEffect(() => {
+    if (!data || !dirty) return;
+
+    if (draftTimer.current) window.clearTimeout(draftTimer.current);
+    draftTimer.current = window.setTimeout(() => {
+      saveConfigDraft(data, baseline);
+      setDraftSavedAt(Date.now());
+    }, 400);
+
+    return () => {
+      if (draftTimer.current) window.clearTimeout(draftTimer.current);
+    };
+  }, [data, baseline, dirty]);
+
   const save = async () => {
     if (!data) return false;
     setSaving(true);
@@ -66,6 +113,9 @@ export function usePortfolioEditor() {
     if (!apiAvailable) {
       downloadPortfolioJson(data);
       setBaseline(JSON.stringify(data));
+      savePortfolioCache(data);
+      clearConfigDraft();
+      setDraftRestored(false);
       setSaving(false);
       return true;
     }
@@ -83,7 +133,11 @@ export function usePortfolioEditor() {
         const body = await res.json().catch(() => ({}));
         throw new Error(body.error ?? '保存失败');
       }
-      setBaseline(JSON.stringify(data));
+      const saved = JSON.stringify(data);
+      setBaseline(saved);
+      savePortfolioCache(data);
+      clearConfigDraft();
+      setDraftRestored(false);
       return true;
     } catch (e) {
       setError(e instanceof Error ? e.message : '保存失败');
@@ -91,6 +145,22 @@ export function usePortfolioEditor() {
     } finally {
       setSaving(false);
     }
+  };
+
+  const saveDraft = () => {
+    if (!data) return false;
+    saveConfigDraft(data, baseline);
+    setDraftSavedAt(Date.now());
+    setDraftRestored(true);
+    return true;
+  };
+
+  const preview = () => {
+    if (!data) return;
+    saveConfigDraft(data, baseline);
+    setDraftSavedAt(Date.now());
+    savePreviewData(data);
+    window.open(getPreviewUrl(), '_blank', 'noopener,noreferrer');
   };
 
   const exportJson = () => {
@@ -101,7 +171,15 @@ export function usePortfolioEditor() {
   const reset = () => {
     if (!baseline) return;
     setData(JSON.parse(baseline) as PortfolioData);
+    clearConfigDraft();
+    setDraftRestored(false);
+    setDraftSavedAt(null);
     setError(null);
+  };
+
+  const discardDraft = () => {
+    clearConfigDraft();
+    reset();
   };
 
   const update = (updater: (prev: PortfolioData) => PortfolioData) => {
@@ -118,9 +196,15 @@ export function usePortfolioEditor() {
     dirty,
     authRequired,
     apiAvailable,
+    draftRestored,
+    draftSavedAt,
     load,
     save,
+    saveDraft,
+    preview,
     exportJson,
     reset,
+    discardDraft,
+    formatCacheTime,
   };
 }

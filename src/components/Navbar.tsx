@@ -17,10 +17,12 @@ export function Navbar({
   title,
   contact,
   activeSection,
+  className,
 }: {
   title: string;
   contact?: ContactInfo;
   activeSection?: SectionId | null;
+  className?: string;
 }) {
   const scrolled = useScrolled();
   const reduced = useReducedMotion();
@@ -46,7 +48,7 @@ export function Navbar({
         initial={reduced ? false : { y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+        className={`fixed inset-x-0 z-50 transition-all duration-300 ${className ?? 'top-0'} ${
           scrolled || menuOpen
             ? 'border-b border-white/8 bg-[#030014]/85 backdrop-blur-xl shadow-[0_4px_30px_rgba(139,92,246,0.12)]'
             : 'border-b border-transparent bg-transparent'

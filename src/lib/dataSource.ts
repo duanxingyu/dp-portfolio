@@ -1,4 +1,5 @@
 import type { PortfolioData } from '../types/portfolio';
+import { loadPortfolioCache, savePortfolioCache } from './portfolioCache';
 
 /** 静态资源路径，兼容 GitHub Pages 子路径部署 */
 export function assetUrl(path: string | undefined): string {
@@ -13,15 +14,30 @@ export function portfolioUrl(): string {
 }
 
 export async function fetchPortfolio(): Promise<PortfolioData> {
-  const staticRes = await fetch(portfolioUrl(), { cache: 'no-store' });
-  if (staticRes.ok) return staticRes.json();
+  try {
+    const staticRes = await fetch(portfolioUrl(), { cache: 'no-store' });
+    if (staticRes.ok) {
+      const data = (await staticRes.json()) as PortfolioData;
+      savePortfolioCache(data);
+      return data;
+    }
+  } catch {
+    // 网络异常，尝试缓存
+  }
 
   try {
     const apiRes = await fetch('/api/portfolio');
-    if (apiRes.ok) return apiRes.json();
+    if (apiRes.ok) {
+      const data = (await apiRes.json()) as PortfolioData;
+      savePortfolioCache(data);
+      return data;
+    }
   } catch {
     // 静态托管无 API
   }
+
+  const cached = loadPortfolioCache();
+  if (cached?.data) return cached.data;
 
   throw new Error('无法加载 portfolio.json');
 }

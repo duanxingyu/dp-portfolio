@@ -7,6 +7,7 @@ import { PortfolioGrid } from './components/PortfolioGrid';
 import { About } from './components/About';
 import { Contact, Footer } from './components/Contact';
 import { ScrollProgress, ScrollGlow } from './components/ScrollEffects';
+import { PreviewBanner } from './components/PreviewBanner';
 import { usePortfolio } from './hooks/usePortfolio';
 import { useScrollSpy } from './hooks/useScrollSpy';
 import { useSiteMeta } from './hooks/useSiteMeta';
@@ -33,7 +34,7 @@ function LoadingScreen() {
 }
 
 export default function App() {
-  const { data, loading, error } = usePortfolio();
+  const { data, loading, error, previewMode, previewSavedAt, exitPreview } = usePortfolio();
   const activeSection = useScrollSpy(!loading && !!data);
 
   useSiteMeta({
@@ -68,17 +69,25 @@ export default function App() {
 
   return (
     <>
+      {previewMode && (
+        <PreviewBanner savedAt={previewSavedAt} onExit={exitPreview} />
+      )}
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[300] focus:rounded-full focus:bg-violet-600 focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-white"
+        className={`sr-only focus:not-sr-only focus:fixed focus:left-4 focus:z-[300] focus:rounded-full focus:bg-violet-600 focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-white ${previewMode ? 'focus:top-16' : 'focus:top-4'}`}
       >
         跳到主要内容
       </a>
       <AnimatedBackground />
       <ScrollProgress />
       <ScrollGlow />
-      <Navbar title={site.title} contact={site.contact} activeSection={activeSection} />
-      <main id="main">
+      <Navbar
+        title={site.title}
+        contact={site.contact}
+        activeSection={activeSection}
+        className={previewMode ? 'top-12' : undefined}
+      />
+      <main id="main" className={previewMode ? 'pt-12' : undefined}>
         <Hero
           title={site.title}
           subtitle={site.subtitle}
