@@ -17,12 +17,18 @@ export async function fetchPortfolio(): Promise<PortfolioData> {
   try {
     const staticRes = await fetch(portfolioUrl(), { cache: 'no-store' });
     if (staticRes.ok) {
-      const data = (await staticRes.json()) as PortfolioData;
-      savePortfolioCache(data);
-      return data;
+      const text = await staticRes.text();
+      try {
+        const data = JSON.parse(text.replace(/^\uFEFF/, '')) as PortfolioData;
+        savePortfolioCache(data);
+        return data;
+      } catch {
+        throw new Error('portfolio.json 格式无效（可能含重复内容），请重新部署');
+      }
     }
-  } catch {
-    // 网络异常，尝试缓存
+  } catch (error) {
+    if (error instanceof Error && error.message.includes('格式无效')) throw error;
+    // 网络异常，尝试 API / 缓存
   }
 
   try {
