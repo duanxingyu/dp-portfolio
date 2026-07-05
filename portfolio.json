@@ -1,0 +1,393 @@
+{
+  "site": {
+    "title": "王栋坡",
+    "subtitle": "产品工业设计师",
+    "tagline": "工业产品设计 · 用户体验调研 · 3D 可视化建模",
+    "description": "从用户调研、草图推敲到 3D 建模与渲染，我专注于将产品从概念落地为可量产的设计方案。欢迎浏览作品，期待与您交流。",
+    "status": "开放在校/实习机会",
+    "location": "中国 · 上海",
+    "contact": {
+      "email": "291925874@qq.com",
+      "phone": "13526743811",
+      "wechat": "wdp040905",
+      "wechatQr": "/assets/about/wechat-qr.jpg",
+      "resume": "/assets/resume.pdf"
+    },
+    "social": {},
+    "marquee": [
+      "用户研究",
+      "草图推演",
+      "Rhino 建模",
+      "Keyshot 渲染",
+      "CMF 设计",
+      "设计报告",
+      "3D 打印验证",
+      "产品设计",
+      "AIGC"
+    ]
+  },
+  "about": {
+    "avatar": "/assets/about/avatar.jpg",
+    "bio": "产品设计专业背景，具备从 0 到 1 的产品设计全流程经验。擅长消费电子产品与智能硬件，习惯用草图快速验证想法，通过 3D 建模与渲染呈现设计细节，并输出完整的设计说明文档。",
+    "skills": [
+      "用户调研",
+      "概念草图",
+      "3D 建模",
+      "渲染表现",
+      "UI 原型",
+      "设计报告"
+    ],
+    "tools": [
+      "Rhino",
+      "keyshot",
+      "creo",
+      "CAD",
+      "ChatGPT",
+      "Gemini",
+      "codex",
+      "WPS",
+      "剪映"
+    ]
+  },
+  "stats": [
+    {
+      "value": "8+",
+      "label": "完整项目"
+    },
+    {
+      "value": "3",
+      "label": "设计方向"
+    },
+    {
+      "value": "2027",
+      "label": "毕业 / 求职"
+    }
+  ],
+  "categories": [
+    "全部",
+    "产品设计",
+    "3D 建模",
+    "设计过程",
+    "手绘"
+  ],
+  "projects": [
+    {
+      "id": "smart-speaker",
+      "title": "城市上班族移动睡眠无人驾驶载具设计",
+      "category": "产品设计",
+      "role": "个人项目",
+      "year": "2026",
+      "description": "本项目为自动驾驶小型乘用车外观与内饰一体化设计，打造车内移动办公+休息双模式空间。完成三维建模、内饰布局规划、外观曲面造型，同时制作实景渲染与产品演示短片。",
+      "cover": "/assets/works/smart-speaker/cover.png",
+      "media": [
+        {
+          "type": "image",
+          "src": "/assets/works/smart-speaker/cover.png",
+          "alt": "产品渲染主图"
+        },
+        {
+          "type": "image",
+          "src": "/assets/works/smart-speaker/sketch.png",
+          "alt": "局部展示"
+        },
+        {
+          "type": "image",
+          "src": "/assets/works/smart-speaker/cmf.png",
+          "alt": "人机使用图"
+        },
+        {
+          "type": "image",
+          "src": "/assets/works/smart-speaker/73cc0f83a9fd4d7f3d24cb43507464d1.png",
+          "alt": "城市上班族移动睡眠无人驾驶载具设计"
+        },
+        {
+          "type": "image",
+          "src": "/assets/works/smart-speaker/1eeab5676fe820db5fd40e66a3b2b5b6.png",
+          "alt": "城市上班族移动睡眠无人驾驶载具设计"
+        },
+        {
+          "type": "image",
+          "src": "/assets/works/smart-speaker/4e6d8f6897f89d7da93531874efd6230.png",
+          "alt": "城市上班族移动睡眠无人驾驶载具设计"
+        },
+        {
+          "type": "image",
+          "src": "/assets/works/smart-speaker/bf87c04c2afc842da92b4222ef443ec9.png",
+          "alt": "城市上班族移动睡眠无人驾驶载具设计"
+        },
+        {
+          "type": "video",
+          "src": "/assets/works/smart-speaker/cover1 .mp4",
+          "alt": "城市上班族移动睡眠无人驾驶载具设计"
+        }
+      ],
+      "tags": [
+        "Rhino",
+        "keyshot",
+        "人机使用介绍",
+        "功能展示"
+      ]
+    },
+    {
+      "id": "wearable-band",
+      "title": "智播优配播种机",
+      "category": "产品设计",
+      "role": "课程项目",
+      "year": "2025",
+      "description": "本设计旨在解决传统播种作业中因盲目施肥导致的“烧苗”、“土壤结块”与面源污染问题。作品名为智播优配播种机，其核心创新在于将多光谱土壤肥力实时检测系统、计算智能决策算法与变量配肥执行深度融合。通过左侧传感器生成肥力指示图，系统即时计算最佳施肥配方，并控制2个独立肥仓实现氮、磷、钾的现场精准混施与侧深投放，从根本上确保了种肥隔离。该设计实现了从“均匀施肥”到“按需供给”的范式转变，显著提升了化肥利用率，为智慧农业提供解决方案。",
+      "cover": "/assets/works/wearable-band/be34dd91ab2294aeadb3bc2a00a00f48.png",
+      "media": [
+        {
+          "type": "image",
+          "src": "/assets/works/wearable-band/be34dd91ab2294aeadb3bc2a00a00f48.png",
+          "alt": "手环渲染图"
+        },
+        {
+          "type": "image",
+          "src": "/assets/works/wearable-band/da15efffbf1703bae6a3b5bc6a533e7d.png",
+          "alt": "设计过程图"
+        },
+        {
+          "type": "image",
+          "src": "/assets/works/wearable-band/检测屏幕.jpg",
+          "alt": "智播优配播种机"
+        },
+        {
+          "type": "image",
+          "src": "/assets/works/wearable-band/97b5b15b3e059a9f08548cdb7eb4260e.jpg",
+          "alt": "智播优配播种机"
+        },
+        {
+          "type": "image",
+          "src": "/assets/works/wearable-band/97e53db655abad09a66d4a77c5ccc624.png",
+          "alt": "智播优配播种机"
+        }
+      ],
+      "tags": [
+        "四视图",
+        "Rhino",
+        "产品设计"
+      ]
+    },
+    {
+      "id": "chair-3d",
+      "title": "高压电线除雪除冰无人机",
+      "category": "产品设计",
+      "role": "课程项目",
+      "year": "2025",
+      "description": "本设计是一款面向高压输电线维护作业的四旋翼无人机，采用全包护桨结构，提升近距离作业安全性。机身集成除冰喷射机构与智能数显面板，完成整机三维建模、曲面外观设计与多角度。",
+      "cover": "/assets/works/chair-3d/cover.jpg",
+      "media": [
+        {
+          "type": "image",
+          "src": "/assets/works/chair-3d/cover.jpg",
+          "alt": "产品细节"
+        },
+        {
+          "type": "image",
+          "src": "/assets/works/chair-3d/wireframe.jpg",
+          "alt": "顶视图展示"
+        },
+        {
+          "type": "image",
+          "src": "/assets/works/chair-3d/turntable.jpg",
+          "poster": "/assets/works/chair-3d/cover.jpg",
+          "alt": "细节展示"
+        },
+        {
+          "type": "image",
+          "src": "/assets/works/chair-3d/cover1.jpg",
+          "alt": "侧面图 "
+        },
+        {
+          "type": "image",
+          "src": "/assets/works/chair-3d/cover2.png",
+          "alt": "其他CMF"
+        }
+      ],
+      "tags": [
+        "Rhino",
+        "Keyshot",
+        "360° 展示",
+        "四视图",
+        "CMF"
+      ]
+    },
+    {
+      "id": "health-app",
+      "title": "手绘作品",
+      "category": "手绘",
+      "role": "个人作业",
+      "year": "2024",
+      "description": "产品设计手绘是以徒手线条快速表现产品造型、比例、结构、透视与光影效果的视觉草图，分为创意草图、推敲草图、精细效果图，直观呈现设计构想。",
+      "cover": "/assets/works/health-app/60.jpg",
+      "media": [
+        {
+          "type": "image",
+          "src": "/assets/works/health-app/60.jpg",
+          "alt": "App 主界面"
+        },
+        {
+          "type": "image",
+          "src": "/assets/works/health-app/52.jpg",
+          "alt": "界面合集"
+        },
+        {
+          "type": "image",
+          "src": "/assets/works/health-app/58.jpg",
+          "alt": "手绘作品"
+        },
+        {
+          "type": "image",
+          "src": "/assets/works/health-app/24.jpg",
+          "alt": "手绘作品"
+        },
+        {
+          "type": "image",
+          "src": "/assets/works/health-app/51.jpg",
+          "alt": "手绘作品"
+        },
+        {
+          "type": "image",
+          "src": "/assets/works/health-app/25.jpg",
+          "alt": "手绘作品"
+        },
+        {
+          "type": "image",
+          "src": "/assets/works/health-app/27.jpg",
+          "alt": "手绘作品"
+        },
+        {
+          "type": "image",
+          "src": "/assets/works/health-app/53.jpg",
+          "alt": "手绘作品"
+        },
+        {
+          "type": "image",
+          "src": "/assets/works/health-app/9.jpg",
+          "alt": "手绘作品"
+        },
+        {
+          "type": "image",
+          "src": "/assets/works/health-app/67.jpg",
+          "alt": "手绘作品"
+        },
+        {
+          "type": "image",
+          "src": "/assets/works/health-app/4ce30d746fdb21b8163f54989733cef8.jpg",
+          "alt": "手绘作品"
+        },
+        {
+          "type": "image",
+          "src": "/assets/works/health-app/2d341ee2d1adf2ca2891037b7464c839.jpg",
+          "alt": "手绘作品"
+        },
+        {
+          "type": "image",
+          "src": "/assets/works/health-app/bb60db3cd0a591e1758fde0609b53c6b.jpg",
+          "alt": "手绘作品"
+        },
+        {
+          "type": "image",
+          "src": "/assets/works/health-app/285085f28024c9ba042f16eff3e54b98.jpg",
+          "alt": "手绘作品"
+        },
+        {
+          "type": "image",
+          "src": "/assets/works/health-app/d3c0aaff91d5f0a68fc524af3f348bf0.jpg",
+          "alt": "手绘作品"
+        }
+      ],
+      "tags": [
+        "草图手绘",
+        "产品设计"
+      ]
+    },
+    {
+      "id": "sketch-board",
+      "title": "咖啡豆储存仓",
+      "category": "产品设计",
+      "role": "个人项目",
+      "year": "2025",
+      "description": "针对精品咖啡豆保鲜难题，设计一款复古轻奢风格的真空智能储豆仓。产品集成真空锁鲜、温湿度监测、机械定量出豆功能，完成从市场调研、方案草图、三维建模到渲染展板的整套。",
+      "cover": "/assets/works/sketch-board/cover.png",
+      "media": [
+        {
+          "type": "image",
+          "src": "/assets/works/sketch-board/cover.png",
+          "alt": "产品场景使用"
+        },
+        {
+          "type": "image",
+          "src": "/assets/works/sketch-board/sketches.png",
+          "alt": "细节展示"
+        },
+        {
+          "type": "image",
+          "src": "/assets/works/sketch-board/cover1.png",
+          "alt": "炸开图"
+        },
+        {
+          "type": "image",
+          "src": "/assets/works/sketch-board/cover222.png",
+          "alt": "人机使用图"
+        },
+        {
+          "type": "image",
+          "src": "/assets/works/sketch-board/111.jpg",
+          "alt": "咖啡豆储存仓"
+        }
+      ],
+      "tags": [
+        "keyshot",
+        "产品设计",
+        "人机场景",
+        "Rhino"
+      ]
+    },
+    {
+      "id": "lamp-concept",
+      "title": "课堂作业",
+      "category": "设计过程",
+      "role": "个人项目",
+      "year": "2024",
+      "description": "与同学小组交流，完成各项课堂小组作业，展现个人设计产品能力。",
+      "cover": "/assets/works/lamp-concept/eff48e7c2aae28139343a0a53633b1dc.jpg",
+      "media": [
+        {
+          "type": "image",
+          "src": "/assets/works/lamp-concept/eff48e7c2aae28139343a0a53633b1dc.jpg",
+          "alt": "氛围灯渲染"
+        },
+        {
+          "type": "image",
+          "src": "/assets/works/lamp-concept/b804a96a42e364164ff6c94ce842c11a.jpg",
+          "alt": "爆炸图"
+        },
+        {
+          "type": "image",
+          "src": "/assets/works/lamp-concept/599b6b1957a4d01955556e0bd862f8ce.jpg",
+          "alt": "课堂作业"
+        },
+        {
+          "type": "image",
+          "src": "/assets/works/lamp-concept/4093dcd4166785cecd70efc94f529b80.jpg",
+          "alt": "课堂作业"
+        },
+        {
+          "type": "image",
+          "src": "/assets/works/lamp-concept/e594847c34a5737b64bc6325bcb24092.jpg",
+          "alt": "课堂作业"
+        },
+        {
+          "type": "image",
+          "src": "/assets/works/lamp-concept/36ef4c2cbd6df51573f21dfa2ea35039.jpg",
+          "alt": "课堂作业"
+        }
+      ],
+      "tags": [
+        "设计基础"
+      ]
+    }
+  ]
+}
