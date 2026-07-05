@@ -251,15 +251,7 @@ export function Footer({ title }: { title: string }) {
     <footer className="border-t border-white/5 py-8">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-6 text-sm text-white/45 md:flex-row">
         <p>© {new Date().getFullYear()} {title} · 产品设计作品集</p>
-        <div className="flex items-center gap-4">
-          <p>欢迎联系 · 期待合作机会</p>
-          <a
-            href="#/config"
-            className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/45 hover:border-white/20 hover:text-white/70 focus-visible:ring-2 focus-visible:ring-violet-400/60"
-          >
-            配置
-          </a>
-        </div>
+        <p>欢迎联系 · 期待合作机会</p>
       </div>
     </footer>
   );
