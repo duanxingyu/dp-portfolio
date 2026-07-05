@@ -9,9 +9,11 @@ import { staggerContainer, fadeUp, gridItem, springFloat, springLayout } from '.
 export function PortfolioGrid({
   projects,
   categories,
+  watermarkText,
 }: {
   projects: Project[];
   categories: string[];
+  watermarkText: string;
 }) {
   const [activeCategory, setActiveCategory] = useState('全部');
   const [selected, setSelected] = useState<Project | null>(null);
@@ -102,7 +104,9 @@ export function PortfolioGrid({
       </div>
 
       <AnimatePresence>
-        {selected && <Lightbox project={selected} onClose={() => setSelected(null)} />}
+        {selected && (
+          <Lightbox project={selected} watermarkText={watermarkText} onClose={() => setSelected(null)} />
+        )}
       </AnimatePresence>
     </section>
   );

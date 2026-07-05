@@ -97,7 +97,7 @@ export default function App() {
           stats={stats}
         />
         {site.marquee && site.marquee.length > 0 && <SkillsShowcase items={site.marquee} />}
-        <PortfolioGrid projects={projects} categories={categories} />
+        <PortfolioGrid projects={projects} categories={categories} watermarkText={site.title} />
         <About avatar={about.avatar} bio={about.bio} tools={about.tools} />
         <Contact contact={site.contact} location={site.location} social={site.social} />
       </main>

@@ -3,13 +3,16 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import type { Project } from '../types/portfolio';
 import { assetUrl } from '../lib/dataSource';
 import { useFocusTrap } from '../hooks/useFocusTrap';
+import { ImageWatermark } from './ImageWatermark';
 import { overlayVariants, modalVariants, springFloat } from '../lib/motion';
 
 export function Lightbox({
   project,
+  watermarkText,
   onClose,
 }: {
   project: Project;
+  watermarkText: string;
   onClose: () => void;
 }) {
   const [index, setIndex] = useState(0);
@@ -71,24 +74,31 @@ export function Lightbox({
               animate={{ opacity: 1, x: 0 }}
               exit={reduced ? undefined : { opacity: 0, x: -20 }}
               transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="flex items-center justify-center"
+              className="relative flex items-center justify-center"
             >
               {current.type === 'video' ? (
-                <video
-                  src={assetUrl(current.src)}
-                  poster={current.poster ? assetUrl(current.poster) : undefined}
-                  controls
-                  preload="metadata"
-                  className="max-h-[60vh] w-full object-contain"
-                >
-                  <track kind="captions" />
-                </video>
+                <div className="relative w-full">
+                  <video
+                    src={assetUrl(current.src)}
+                    poster={current.poster ? assetUrl(current.poster) : undefined}
+                    controls
+                    preload="metadata"
+                    className="max-h-[60vh] w-full object-contain"
+                  >
+                    <track kind="captions" />
+                  </video>
+                  <ImageWatermark text={watermarkText} />
+                </div>
               ) : (
-                <img
-                  src={assetUrl(current.src)}
-                  alt={current.alt ?? project.title}
-                  className="max-h-[60vh] w-full object-contain"
-                />
+                <div className="relative w-full">
+                  <img
+                    src={assetUrl(current.src)}
+                    alt={current.alt ?? project.title}
+                    draggable={false}
+                    className="portfolio-image max-h-[60vh] w-full object-contain"
+                  />
+                  <ImageWatermark text={watermarkText} />
+                </div>
               )}
             </motion.div>
           </AnimatePresence>
@@ -175,7 +185,7 @@ export function Lightbox({
                   aria-selected={i === index}
                   aria-label={item.alt ?? `第 ${i + 1} 张`}
                   onClick={() => setIndex(i)}
-                  className={`h-14 w-14 shrink-0 cursor-pointer overflow-hidden rounded-lg border-2 focus-visible:ring-2 focus-visible:ring-violet-400/60 ${
+                  className={`relative h-14 w-14 shrink-0 cursor-pointer overflow-hidden rounded-lg border-2 focus-visible:ring-2 focus-visible:ring-violet-400/60 ${
                     i === index
                       ? 'border-violet-500 shadow-[0_0_12px_rgba(139,92,246,0.4)]'
                       : 'border-transparent opacity-50 hover:opacity-100'
@@ -187,7 +197,8 @@ export function Lightbox({
                   <img
                     src={assetUrl(item.type === 'video' ? (item.poster ?? project.cover) : item.src)}
                     alt=""
-                    className="h-full w-full object-cover"
+                    draggable={false}
+                    className="portfolio-image h-full w-full object-cover"
                   />
                 </motion.button>
               ))}

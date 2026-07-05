@@ -177,3 +177,20 @@ body {
   opacity: 0.4;
   pointer-events: none;
 }
+
+/* ── Image watermark ── */
+.image-watermark-corner {
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.38);
+  backdrop-filter: blur(4px);
+  color: rgba(255, 255, 255, 0.72);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.portfolio-image {
+  -webkit-user-drag: none;
+  user-select: none;
+}

@@ -65,8 +65,9 @@ function CardInner({ project, animated = false }: { project: Project; animated?:
         src={assetUrl(project.cover)}
         alt={project.title}
         loading="lazy"
+        draggable={false}
         onLoad={() => setLoaded(true)}
-        className={`h-full w-full object-cover transition-opacity duration-500 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+        className={`portfolio-image h-full w-full object-cover transition-opacity duration-500 ${loaded ? 'opacity-100' : 'opacity-0'}`}
         {...(animated ? { variants: projectImageVariants } : {})}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-[#030014] via-[#030014]/20 to-transparent opacity-60 transition-opacity duration-500 ease-out group-hover:opacity-90" />
